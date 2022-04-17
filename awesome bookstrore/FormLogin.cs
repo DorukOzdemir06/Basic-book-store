@@ -18,9 +18,9 @@ namespace awesome_bookstrore
         {
             InitializeComponent();
         }
-        OleDbConnection conn = new OleDbConnection(ConnectionString);
-        OleDbCommand cmd = new OleDbCommand();
-        OleDbDataAdapter da = new OleDbDataAdapter();
+        private OleDbConnection conn = new OleDbConnection(ConnectionString);
+        private OleDbCommand cmd = new OleDbCommand();
+        private OleDbDataAdapter da = new OleDbDataAdapter();
 
         private void FormLogin_Load(object sender, EventArgs e)
         {
@@ -30,7 +30,7 @@ namespace awesome_bookstrore
         private void btnRegister_Click(object sender, EventArgs e)
         {
             conn.Open();
-            string login = "SELECT * FROM tbl_users WHERE username= '" + textUsername.Text + "' and password= '" + textPassword.Text + "'";
+            string login = "SELECT * FROM tbl_users WHERE username= '" + textUsername.Text + "' and password= '" + textPassword.Text + "' and mail='" +textGmail.Text+"'   ";
             cmd = new OleDbCommand(login, conn);
             OleDbDataReader dr = cmd.ExecuteReader();
 
@@ -39,19 +39,21 @@ namespace awesome_bookstrore
                 
                 new dashboard(textUsername.Text,textGmail.Text).Show();
                 this.Hide();
+               
                 conn.Close();
                 
             }
             else
             {
-                MessageBox.Show("Invalid Username or password, Please Try Again","Login Faild",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                MessageBox.Show("Invalid Username, Mail or password, Please Try Again","Login Faild",MessageBoxButtons.OK,MessageBoxIcon.Error);
                 textUsername.Text = "";
                 textPassword.Text = "";
+                textGmail.Text = "";
                
                 textUsername.Focus();
                 conn.Close();
             }
-            conn.Close();
+           
 
         }
 

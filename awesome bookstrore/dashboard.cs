@@ -25,12 +25,8 @@ namespace awesome_bookstrore
         int book_number = 0;
         double price = 0;
         static dashboard ds;
-        //private const string ConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=db_users.mdb";
-        //public dashboard()
-        //{
-        //    InitializeComponent();
-            
-        //}
+        private const string ConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=db_users.mdb";
+       
         public dashboard(string username,string gmail)
         {
             InitializeComponent();
@@ -38,21 +34,22 @@ namespace awesome_bookstrore
             label1.Text = username;
             label7.Text = gmail;
         }
-        
-        
-        //OleDbConnection conn = new OleDbConnection(ConnectionString);
-        //OleDbCommand cmd = new OleDbCommand();
+
+
+        private OleDbConnection conn = new OleDbConnection(ConnectionString);
+        private OleDbCommand cmd = new OleDbCommand();
         //OleDbDataAdapter da = new OleDbDataAdapter();
 
         private void dashboard_Load(object sender, EventArgs e)
         {
-            //this.WindowState = FormWindowState.Maximized;
+            
             DarkLight.BackColor = Color.FromArgb(180, 235, 235, 235);
+            
             textBox1.Text = "sipariş edilen kitaplar\n";
             //cartBindingSource.DataSource=new List<Cart>();
             //label4.Text =book_number.ToString();
             //label20.Text =price.ToString();
-            this.FormBorderStyle = FormBorderStyle.FixedSingle; // sayfa düzeni bozuluyor diye resacele'i kaldırdım
+            this.FormBorderStyle = FormBorderStyle.FixedSingle; // sayfa düzenini bozuluyor diye resacele'i kaldırdım
 
         }
 
@@ -123,14 +120,6 @@ namespace awesome_bookstrore
             }
             label20.Text = price2.ToString();
         }
-
-
-
-
-
-
-
-
        
 
         private void button1_Click_1(object sender, EventArgs e)
@@ -348,13 +337,31 @@ namespace awesome_bookstrore
 
         private void button27_Click(object sender, EventArgs e)
         {
-            
-            for (int i = 0; i < dataGridView1.Rows.Count-1; i++)
+
+            conn.Open();
+            for (int i = 0; i < dataGridView1.Rows.Count - 1; i++)
             {
                 textBox1.AppendText(dataGridView1.Rows[i].Cells[0].Value.ToString());
                 textBox1.AppendText("\n");
+                
+
+            }
+            cmd.Connection = conn;
+            
+
+            for (int i = 0; i < dataGridView1.Rows.Count-1; i++)
+            {
+                cmd.CommandText = "insert into tbl_books (mail,book,price) values('" + label7.Text+ "','" + dataGridView1.Rows[i].Cells[0].Value.ToString() + "','" + dataGridView1.Rows[i].Cells[1].Value.ToString() + "') " ;
+
+                cmd.ExecuteNonQuery();
             }
 
+            
+            
+            
+            
+            
+            
             //MailMessage mail = new MailMessage("eee120.BookStore@gmail.com",label7.Text,"Kitap Siparişi",textBox1.Text);
             //SmtpClient client = new SmtpClient("smtp.gmail.com");
             //client.Port = 587;
@@ -365,7 +372,9 @@ namespace awesome_bookstrore
 
             label20.Text = "0";
             label4.Text = "0";
-            
+            book_number = 0;
+            price = 0;
+
             //var message = new MailMessage("eee120.BookStore@gmail.com", label7.Text);
             //message.Subject= "Kitap siparişi";
             //message.Body= textBox1.Text;
@@ -467,7 +476,9 @@ namespace awesome_bookstrore
 
         private void dashboard_FormClosed(object sender, FormClosedEventArgs e)
         {
+            conn.Close();
             Environment.Exit(0);
+
         }
 
         private void label19_Click(object sender, EventArgs e)

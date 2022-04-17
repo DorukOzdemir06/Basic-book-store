@@ -20,10 +20,10 @@ namespace awesome_bookstrore
             InitializeComponent();
             
         }
-        OleDbConnection conn = new OleDbConnection(ConnectionString);
-        OleDbCommand cmd = new OleDbCommand();
-        
-        OleDbDataAdapter da = new OleDbDataAdapter();
+        private OleDbConnection conn = new OleDbConnection(ConnectionString);
+        private OleDbCommand cmd = new OleDbCommand();
+
+        private OleDbDataAdapter da = new OleDbDataAdapter();
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -47,7 +47,7 @@ namespace awesome_bookstrore
                 DataSet ds = new DataSet();
                 da.Fill(ds);
                 string email;
-                for (int i = 0; ds.Tables[0].Rows.Count > i; i++)
+                for (int i = 0; ds.Tables[0].Rows.Count > i; i++)//duplicate mail önler
                 {
                     email = ds.Tables[0].Rows[i][2].ToString();
                     if(email == textBox1.Text)
