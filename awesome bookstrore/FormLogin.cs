@@ -82,5 +82,10 @@ namespace awesome_bookstrore
             new Form1().Show();
             this.Hide();
         }
+
+        private void FormLogin_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Environment.Exit(0);
+        }
     }
 }

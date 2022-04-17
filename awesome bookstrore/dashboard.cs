@@ -354,16 +354,17 @@ namespace awesome_bookstrore
                 textBox1.AppendText(dataGridView1.Rows[i].Cells[0].Value.ToString());
                 textBox1.AppendText("\n");
             }
-            
-            MailMessage mail = new MailMessage("eee120.BookStore@gmail.com",label7.Text,"Kitap Siparişi",textBox1.Text);
-            SmtpClient client = new SmtpClient("smtp.gmail.com");
-            client.Port = 587;
-            client.Credentials = new System.Net.NetworkCredential("eee120.BookStore@gmail.com", "bookstore120");
-            client.EnableSsl = true;
-            client.Send(mail);
-            
-            
-            
+
+            //MailMessage mail = new MailMessage("eee120.BookStore@gmail.com",label7.Text,"Kitap Siparişi",textBox1.Text);
+            //SmtpClient client = new SmtpClient("smtp.gmail.com");
+            //client.Port = 587;
+            //client.Credentials = new System.Net.NetworkCredential("eee120.BookStore@gmail.com", "bookstore120");
+            //client.EnableSsl = true;
+            //client.Send(mail);
+
+
+            label20.Text = "0";
+            label4.Text = "0";
             
             //var message = new MailMessage("eee120.BookStore@gmail.com", label7.Text);
             //message.Subject= "Kitap siparişi";

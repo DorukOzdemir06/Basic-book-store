@@ -22,6 +22,7 @@ namespace awesome_bookstrore
         }
         OleDbConnection conn = new OleDbConnection(ConnectionString);
         OleDbCommand cmd = new OleDbCommand();
+        
         OleDbDataAdapter da = new OleDbDataAdapter();
 
         private void Form1_Load(object sender, EventArgs e)
@@ -40,12 +41,29 @@ namespace awesome_bookstrore
             else if(textPassword.Text == textConfirmpsw.Text)
             {
                 conn.Open();
-                string register = "INSERT INTO tbl_users VALUES ('" + textUsername.Text + "','" + textPassword.Text + "','"+textBox1.Text+"')";
+                cmd = new OleDbCommand("select * from tbl_users",conn);
+                cmd.CommandType = CommandType.Text;
+                da = new OleDbDataAdapter(cmd);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+                string email;
+                for (int i = 0; ds.Tables[0].Rows.Count > i; i++)
+                {
+                    email = ds.Tables[0].Rows[i][2].ToString();
+                    if(email == textBox1.Text)
+                    {                       
+                        MessageBox.Show("The mail has been already used.");
+                        textBox1.Text = "";
+                        return;
+                    }
+                }          
+                
+                string register = "INSERT INTO tbl_users VALUES ('" + textUsername.Text + "','" + textPassword.Text + "','" + textBox1.Text + "')";
                 cmd = new OleDbCommand(register,conn);
-                //cmd.Connection.Open();
+                
                 cmd.ExecuteNonQuery();
                 conn.Close();
-                //cmd.Connection.Close();
+                
                 
                 textUsername.Text = "";
                 textPassword.Text = "";
