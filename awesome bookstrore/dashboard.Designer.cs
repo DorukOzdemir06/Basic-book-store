@@ -32,6 +32,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.DarkLight = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label49 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
@@ -170,7 +171,6 @@
             this.pictureBox25 = new System.Windows.Forms.PictureBox();
             this.pictureBox26 = new System.Windows.Forms.PictureBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.label50 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
@@ -247,6 +247,17 @@
             this.textBox2.Size = new System.Drawing.Size(109, 13);
             this.textBox2.TabIndex = 77;
             this.textBox2.Text = "bookstro120";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Nirmala UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(6, 93);
+            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(30, 15);
+            this.label7.TabIndex = 76;
+            this.label7.Text = "mail";
             // 
             // panel2
             // 
@@ -1046,9 +1057,9 @@
             // 
             // pictureBox14
             // 
-            this.pictureBox14.BackColor = System.Drawing.SystemColors.Control;
+            this.pictureBox14.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox14.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox14.Image")));
-            this.pictureBox14.Location = new System.Drawing.Point(1176, 10);
+            this.pictureBox14.Location = new System.Drawing.Point(1162, 18);
             this.pictureBox14.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox14.Name = "pictureBox14";
             this.pictureBox14.Size = new System.Drawing.Size(75, 41);
@@ -1062,7 +1073,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Nirmala UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.label3.Location = new System.Drawing.Point(1293, 25);
+            this.label3.Location = new System.Drawing.Point(1241, 25);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(60, 25);
@@ -1073,7 +1084,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Nirmala UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(1378, 25);
+            this.label4.Location = new System.Drawing.Point(1409, 36);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(23, 25);
@@ -1082,7 +1093,7 @@
             // 
             // button13
             // 
-            this.button13.Location = new System.Drawing.Point(1176, 609);
+            this.button13.Location = new System.Drawing.Point(1192, 609);
             this.button13.Margin = new System.Windows.Forms.Padding(2);
             this.button13.Name = "button13";
             this.button13.Size = new System.Drawing.Size(100, 46);
@@ -1096,12 +1107,13 @@
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Nirmala UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label19.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.label19.Location = new System.Drawing.Point(1164, 741);
+            this.label19.Location = new System.Drawing.Point(1169, 743);
             this.label19.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(83, 25);
             this.label19.TabIndex = 6;
             this.label19.Text = "TOTAL : ";
+            this.label19.Click += new System.EventHandler(this.label19_Click);
             // 
             // label20
             // 
@@ -1150,7 +1162,7 @@
             // 
             // button25
             // 
-            this.button25.Location = new System.Drawing.Point(1298, 609);
+            this.button25.Location = new System.Drawing.Point(1316, 609);
             this.button25.Margin = new System.Windows.Forms.Padding(2);
             this.button25.Name = "button25";
             this.button25.Size = new System.Drawing.Size(100, 46);
@@ -1161,13 +1173,15 @@
             // 
             // button27
             // 
-            this.button27.Location = new System.Drawing.Point(1246, 674);
+            this.button27.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.button27.FlatAppearance.BorderSize = 0;
+            this.button27.Location = new System.Drawing.Point(1253, 674);
             this.button27.Margin = new System.Windows.Forms.Padding(2);
             this.button27.Name = "button27";
             this.button27.Size = new System.Drawing.Size(100, 46);
             this.button27.TabIndex = 37;
             this.button27.Text = "BUY";
-            this.button27.UseVisualStyleBackColor = true;
+            this.button27.UseVisualStyleBackColor = false;
             this.button27.Click += new System.EventHandler(this.button27_Click);
             // 
             // dataGridView1
@@ -1878,23 +1892,12 @@
             this.textBox1.Size = new System.Drawing.Size(266, 171);
             this.textBox1.TabIndex = 77;
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Nirmala UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(6, 93);
-            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(30, 15);
-            this.label7.TabIndex = 76;
-            this.label7.Text = "mail";
-            // 
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.panel4.Controls.Add(this.label50);
             this.panel4.Controls.Add(this.label20);
-            this.panel4.Location = new System.Drawing.Point(1246, 741);
+            this.panel4.Location = new System.Drawing.Point(1253, 743);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(100, 25);
             this.panel4.TabIndex = 78;
@@ -1917,7 +1920,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(1443, 857);
+            this.ClientSize = new System.Drawing.Size(1449, 857);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.panel3);

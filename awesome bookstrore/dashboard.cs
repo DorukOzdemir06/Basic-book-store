@@ -469,5 +469,10 @@ namespace awesome_bookstrore
         {
             Environment.Exit(0);
         }
+
+        private void label19_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

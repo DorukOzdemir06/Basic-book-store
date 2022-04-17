@@ -47,6 +47,7 @@ namespace awesome_bookstrore
                 MessageBox.Show("Invalid Username or password, Please Try Again","Login Faild",MessageBoxButtons.OK,MessageBoxIcon.Error);
                 textUsername.Text = "";
                 textPassword.Text = "";
+               
                 textUsername.Focus();
                 conn.Close();
             }
