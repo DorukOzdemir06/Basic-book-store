@@ -58,26 +58,7 @@ namespace awesome_bookstrore
                 myConnection.Close();
             }
         }
-        private static void DeleteBookBasketDB(string kv,string kv2)
-        {
-            OleDbConnection myConnection = new OleDbConnection(ConnectionString);
-            string myQuery = "DELETE FROM tbl_basket (mail,book) values('" + kv+ "','" + kv2 +"') ";
-            OleDbCommand myCommand = new OleDbCommand(myQuery, myConnection);
-
-            try
-            {
-                myConnection.Open();
-                myCommand.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Exception in DBHandler", ex);
-            }
-            finally
-            {
-                myConnection.Close();
-            }
-        }
+        
 
         private OleDbConnection conn = new OleDbConnection(ConnectionString);
         private OleDbCommand cmd = new OleDbCommand();       
@@ -100,8 +81,8 @@ namespace awesome_bookstrore
             cmd.CommandType = CommandType.Text;
             da = new OleDbDataAdapter(cmd);
             DataSet ds = new DataSet();
-            da.Fill(ds);           
-                       
+            da.Fill(ds);
+            
             for (int i = 0; ds.Tables[0].Rows.Count > i; i++)
             {
                 string emailb = ds.Tables[0].Rows[i][0].ToString();
@@ -110,12 +91,16 @@ namespace awesome_bookstrore
                 if (label7.Text == emailb)
                 {
                     dataGridView1.Rows.Add(bookb,priceb);
+                    price += float.Parse(priceb);
                     DeleteBasketDB(emailb);
                     
                 }
+                
+               
             }
-           
-
+            book_number = dataGridView1.Rows.Count - 1;
+            label4.Text = book_number.ToString();
+            label20.Text = price.ToString();
 
         }
 
@@ -178,13 +163,14 @@ namespace awesome_bookstrore
             int rowIndex = dataGridView1.CurrentCell.RowIndex;
             double price2 = 0;
             dataGridView1.Rows.RemoveAt(rowIndex);
-            
+            if (book_number > 0) book_number--;
             label4.Text = book_number.ToString();
             for (int i = 0; i < dataGridView1.Rows.Count; i++)
             {
                 price2 = price2 + Convert.ToDouble(dataGridView1.Rows[i].Cells[1].Value);
             }
             label20.Text = price2.ToString();
+            if (dataGridView1.Rows.Count - 1 == 0) price = 0;
         }
        
 
@@ -598,6 +584,11 @@ namespace awesome_bookstrore
                 conn.Close();
 
             }
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
