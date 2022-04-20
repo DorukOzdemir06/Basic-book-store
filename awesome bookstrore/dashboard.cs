@@ -36,9 +36,52 @@ namespace awesome_bookstrore
         }
 
 
+        
+
+        private static void DeleteBasketDB(string kv)
+        {
+            OleDbConnection myConnection = new OleDbConnection(ConnectionString);
+            string myQuery = "DELETE FROM tbl_basket WHERE mail = '" + kv + "'";
+            OleDbCommand myCommand = new OleDbCommand(myQuery, myConnection);
+
+            try
+            {
+                myConnection.Open();
+                myCommand.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception in DBHandler", ex);
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+        }
+        private static void DeleteBookBasketDB(string kv,string kv2)
+        {
+            OleDbConnection myConnection = new OleDbConnection(ConnectionString);
+            string myQuery = "DELETE FROM tbl_basket (mail,book) values('" + kv+ "','" + kv2 +"') ";
+            OleDbCommand myCommand = new OleDbCommand(myQuery, myConnection);
+
+            try
+            {
+                myConnection.Open();
+                myCommand.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception in DBHandler", ex);
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+        }
+
         private OleDbConnection conn = new OleDbConnection(ConnectionString);
-        private OleDbCommand cmd = new OleDbCommand();
-        //OleDbDataAdapter da = new OleDbDataAdapter();
+        private OleDbCommand cmd = new OleDbCommand();       
+        private OleDbDataAdapter da = new OleDbDataAdapter();
 
         private void dashboard_Load(object sender, EventArgs e)
         {
@@ -50,6 +93,29 @@ namespace awesome_bookstrore
             //label4.Text =book_number.ToString();
             //label20.Text =price.ToString();
             this.FormBorderStyle = FormBorderStyle.FixedSingle; // sayfa düzenini bozuluyor diye resacele'i kaldırdım
+
+            
+
+            cmd = new OleDbCommand("select * from tbl_basket", conn);
+            cmd.CommandType = CommandType.Text;
+            da = new OleDbDataAdapter(cmd);
+            DataSet ds = new DataSet();
+            da.Fill(ds);           
+                       
+            for (int i = 0; ds.Tables[0].Rows.Count > i; i++)
+            {
+                string emailb = ds.Tables[0].Rows[i][0].ToString();
+                string bookb = ds.Tables[0].Rows[i][1].ToString();
+                string priceb = ds.Tables[0].Rows[i][2].ToString();
+                if (label7.Text == emailb)
+                {
+                    dataGridView1.Rows.Add(bookb,priceb);
+                    DeleteBasketDB(emailb);
+                    
+                }
+            }
+           
+
 
         }
 
@@ -112,7 +178,7 @@ namespace awesome_bookstrore
             int rowIndex = dataGridView1.CurrentCell.RowIndex;
             double price2 = 0;
             dataGridView1.Rows.RemoveAt(rowIndex);
-            book_number--;
+            
             label4.Text = book_number.ToString();
             for (int i = 0; i < dataGridView1.Rows.Count; i++)
             {
@@ -337,7 +403,7 @@ namespace awesome_bookstrore
 
         private void button27_Click(object sender, EventArgs e)
         {
-
+            
             conn.Open();
             for (int i = 0; i < dataGridView1.Rows.Count - 1; i++)
             {
@@ -407,6 +473,7 @@ namespace awesome_bookstrore
             //    MailMessage mailMessage = new MailMessage("ahmetcevdetbulbul@gmail.com",label7.Text,"Kitap siparişi",textBox1.Text);
             //    SmtpClient smtpClient = new SmtpClient(textSMTP.Text.ToString());
             //    smtpClient.Send(mailMessage);
+            conn.Close();
         }
 
 
@@ -476,14 +543,61 @@ namespace awesome_bookstrore
 
         private void dashboard_FormClosed(object sender, FormClosedEventArgs e)
         {
+           
+            
+
+
+
+
+
+
+
             conn.Close();
             Environment.Exit(0);
+            
 
         }
 
         private void label19_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dashboard_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
+        }
+
+        private void dashboard_FormClosing_1(object sender, FormClosingEventArgs e)
+        {
+            if (dataGridView1.Rows.Count - 1 != 0)
+            {
+                conn.Open();
+                cmd.Connection = conn;
+
+
+                for (int i = 0; i < dataGridView1.Rows.Count - 1; i++)
+                {
+                    cmd.CommandText = "insert into tbl_basket (mail,book,price) values('" + label7.Text + "','" + dataGridView1.Rows[i].Cells[0].Value.ToString() + "','" + dataGridView1.Rows[i].Cells[1].Value.ToString() + "') ";
+
+                    cmd.ExecuteNonQuery();
+                }
+
+
+
+                conn.Close();
+
+            }
         }
     }
 }
